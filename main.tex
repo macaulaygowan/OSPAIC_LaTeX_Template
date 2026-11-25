@@ -1,0 +1,254 @@
+%  Oxford Studies in Philosophy of AI and Computing (OSPAIC Submission template) 
+%
+%  Build:  latexmk -pdf main.tex
+%  Clean:  latexmk -c
+%
+%  Released under CC0 1.0 (public domain dedication): free to use, no credit
+%  required. See LICENSE.
+%
+%  Submissions are blind reviewed. Set \blindreviewtrue below for the
+%  anonymised version; the author block and the PDF author field are then
+%  suppressed automatically.
+
+\documentclass[12pt]{article}
+
+% DOCUMENT OPTIONS
+\newif\ifblindreview
+% \blindreviewtrue            % anonymous version for submission
+\blindreviewfalse        	  % named version (preprint, arXiv)
+
+% Paper metadata (reused in the title block and the PDF properties)
+\newcommand{\papertitle}{Paper Title}
+\newcommand{\authorname}{First M. Last}
+\newcommand{\authoremail}{email@address.com}
+\newcommand{\authororcid}{0000-0000-0000-0000}
+
+% PACKAGES
+% encoding, fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[american]{babel}           % switch to british if preferred
+\usepackage{newtxtext,newtxmath}       % Times-like text and mathematics
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+
+% mathematics and logic
+\usepackage{amsmath}
+\let\Bbbk\relax                        % newtxmath and amssymb both define \Bbbk
+\usepackage{amssymb}
+\let\openbox\relax                     % amsthm and newtxmath both define \openbox
+\usepackage{amsthm}
+
+% text utilities
+\usepackage{lipsum}                    % Can be removed after putting text content
+\usepackage[autostyle=true]{csquotes}  % quotation marks, used by biblatex
+\usepackage{graphicx}
+\usepackage{booktabs}                  % professional rules in tables
+
+% links, citation
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=authoryear,
+            maxcitenames=2,giveninits=true,uniquename=init]{biblatex}
+\addbibresource{references.bib}
+\usepackage{cleveref}                  % must follow hyperref
+
+% HARVARD REFERENCE LIST (author--date)
+% 'In:' only for chapters and proceedings, not for journal articles
+\renewbibmacro*{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+% volume(issue): 59(236) rather than 59.236
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \iffieldundef{number}{}{\printtext[parens]{\printfield{number}}}%
+  \setunit{\bibeidpunct}%
+  \printfield{eid}}
+% (1950) 'Title' --- no full stop between the year and the title
+\DeclareDelimFormat[bib,biblist]{nametitledelim}{\addspace}
+% comma between the journal title and the volume: Mind, 59(236)
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addcomma\space}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue+date}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+
+% PDF METADATA
+\hypersetup{
+  pdftitle  = {\papertitle},
+  pdfsubject= {CS:PFAI},
+  pdfkeywords = {philosophy of AI, philosophy of computing},
+}
+\ifblindreview
+  \hypersetup{pdfauthor = {}}
+\else
+  \hypersetup{pdfauthor = {\authorname}}
+\fi
+
+% THEOREM-LIKE ENVIRONMENTS
+
+% Propositions: numbered by section, statement in italics (amsthm 'plain' style).
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[section]
+
+% Definitions: bold label naming the concept, generous spacing above and below,
+% and the defined term italicised in the body.
+\newtheoremstyle{ospaicdefinition}%
+  {1.1\baselineskip}% space above
+  {1.1\baselineskip}% space below
+  {\normalfont}% body font
+  {}% indent of the first line
+  {\bfseries}% head font
+  {}% punctuation after the head
+  {1em}% space after the head
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ \textbf{(#3)}}}% head layout
+\theoremstyle{ospaicdefinition}
+\newtheorem{definition}[proposition]{Definition}
+
+% CUSTOM MACROS
+
+% Keywords 
+\providecommand{\keywords}[1] 
+{
+	\small
+	\textbf{Keywords:} #1 
+}
+
+% Modal operators
+\newcommand{\Necessarily}{\Box}
+\newcommand{\Possibly}{\Diamond}
+
+% TITLE BLOCK
+\title{\papertitle}
+\date{}
+
+\ifblindreview
+  \author{\normalsize\textit{Anonymous submission prepared for blind review}}
+\else
+  \author{%
+    \textbf{\authorname}\thanks{Use a footnote for acknowledgements,
+      affiliations and a webpage.}\\
+    Institution of Philosophy and AI\\	% affiliation
+    Royal College of Oz\\				% university (delete if needed)
+    Land of Oz, OZ6 5EA\\				% address
+    \texttt{\authoremail}\quad
+    \href{https://orcid.org/\authororcid}{\includegraphics[height=1.05em]{orcid.pdf}}%
+  }
+\fi
+
+\begin{document}
+\maketitle
+
+% ABSTRACT AND KEYWORDS
+\begin{abstract}
+	\noindent
+	\lipsum[1] 
+	
+	% Keywords
+	\vspace{0.5em}
+	\noindent\keywords{First keyword, Second keyword, Third keyword\par} 
+\end{abstract}
+
+% INTRODUCTION
+\section{Introduction}\label{sec:intro}
+Turing opened his paper with a question that philosophy has not retired:
+\begin{quote}
+	I propose to consider the question, \enquote{Can machines think?} This should
+	begin with definitions of the meaning of the terms \enquote{machine} and
+	\enquote{think}. \parencite[433]{turing1950}
+\end{quote}
+\lipsum[2]
+
+% SECTION 2 (example citation, equation, and figure)
+\section{Heading: Section 2}\label{sec:two}
+The transformer architecture, introduced by \textcite{vaswani2017} ... 
+
+\subsection{Subsection}
+\lipsum[7]
+See Figure \ref{fig:fig1}. Here is a footnote. \footnote{Sample of a footnote.} 
+
+\begin{figure}
+	\centering
+	\fbox{\rule{-.5cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
+	\caption{Sample figure caption.} 
+	\label{fig:fig1}
+\end{figure}
+
+\begin{equation}
+	\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right) V
+\end{equation}
+
+% SECTION 3 (numbered propositions)
+\section{Heading: Section 3}\label{sec:three}
+Propositions are numbered by section and can carry a title.
+
+\begin{proposition}\label{prop:k}
+  $\Necessarily(\varphi \to \psi) \to
+   (\Necessarily\varphi \to \Necessarily\psi)$.
+\end{proposition}
+
+\begin{proposition}[Behavioural equivalence]\label{prop:behavioural}
+  If two systems realise the same machine $M$, they agree on the output
+  produced for every finite input sequence.
+\end{proposition}
+
+% SECTION 4 (definitions and formal notation)
+\section{Heading: Section 4}\label{sec:four}
+
+\begin{definition}[Consciousness]\label{def:consciousness}
+  A creature is \emph{conscious} just in case there is something it is like to
+  be that creature: its mental life has a subjective character, a way it seems
+  to the creature itself. A creature with no such character would be a mere
+  information processor, whatever it could do \autocite[435--450]{nagel1974}.
+\end{definition}
+
+\begin{definition}[Realisation]\label{def:realise}
+  Let $M = \langle S, \delta, s_0, I, O \rangle$ be a deterministic machine
+  with state set $S$, transition function $\delta \colon S \times I \to S$,
+  initial state $s_0$, inputs $I$ and outputs $O$, together with an output map
+  $\omega \colon S \to O$. A physical system $P$ \emph{realises} $M$ if there
+  is an injective mapping $f \colon S \to \mathrm{States}(P)$ such that for all
+  $s \in S$ and $i \in I$, the evolution of $P$ from $f(s)$ on input $i$ ends
+  in $f(\delta(s,i))$.
+\end{definition}
+
+% SECTION 5 (example table)
+\section{Heading: Section 5}\label{sec:five}
+This is a table: 
+\subsection{Table}
+\begin{table}[htbp]
+	\centering
+	\caption{Table Title}
+	\begin{tabular}{cccc}
+		\toprule
+		$p$ & $q$ & $p \to q$ & $\neg q \to \neg p$ \\
+		\midrule
+		T & T & T & T \\
+		T & F & F & F \\
+		F & T & T & T \\
+		F & F & T & T \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:table}
+\end{table} 
+
+% SECTION 6 
+\section{Heading: Section 6}\label{sec:six}
+Possibility can be defined from necessity:
+\begin{equation}\label{eq:duality}
+	\Possibly\varphi \leftrightarrow \neg\Necessarily\neg\varphi
+\end{equation}
+
+\noindent \Cref{eq:duality} is a theorem of every normal modal logic.
+
+% REFERENCES
+\printbibliography
+
+\end{document}
