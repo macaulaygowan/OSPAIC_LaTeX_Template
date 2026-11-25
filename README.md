@@ -44,7 +44,7 @@ The anonymous version prints a discreet line where the author block would be.
 
 ## What the example text shows
 Delete the example content and replace it with your paper. The examples cover
-the basic elements common to a philosophy paper:
+the basic elements common to a philosophy of AI paper:
 
 - a display quotation with a source;
 - sections and subsections, with `lipsum` filler;
