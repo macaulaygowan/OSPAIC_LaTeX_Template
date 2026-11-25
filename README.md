@@ -3,7 +3,7 @@
 A LaTeX template for papers submitted to **Oxford Studies in Philosophy of AI
 and Computing** (OSPAIC). 
 
-This template is an independent file for authors preparing a submission. It is
+This template is an independent file for authors preparing a submission derived from my own personal template. It is
 not affiliated with OSPAIC, its editors, or Oxford University Press. Check the
 call for papers for the official requirements.
 
@@ -32,7 +32,7 @@ the sentence or `\parencite{key}` in brackets, and print the list with
 `\printbibliography`. Harvard has several variants; the adjustments are the
 commented lines at the top of the preamble.
 
-## Blind review
+## Blind Review
 Submissions are blind reviewed. Set the switch at the top of `main.tex`:
 
 ```latex
@@ -42,7 +42,7 @@ Submissions are blind reviewed. Set the switch at the top of `main.tex`:
 
 The anonymous version prints a discreet line where the author block would be.
 
-## What the example text shows
+## What the Example Text Shows
 Delete the example content and replace it with your paper. The examples cover
 the basic elements common to a philosophy of AI paper:
 
